@@ -62,7 +62,7 @@ export default function Home() {
               Feliz Cumpleaños
             </h1>
             <h2 className="font-great-vibes text-5xl md:text-7xl text-pink-600 mb-8">
-              Mi Amor
+              Danita
             </h2>
           </div>
           
