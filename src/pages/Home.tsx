@@ -105,8 +105,11 @@ export default function Home() {
     }
   };
 
+  // Para desarrollo: cambia a true para saltarte la cuenta regresiva
+  const SKIP_COUNTDOWN = false;
+  
   // Si la cuenta regresiva no ha terminado, mostramos la pantalla de espera
-  if (!isCountdownOver) {
+  if (!isCountdownOver && !SKIP_COUNTDOWN) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200 flex items-center justify-center p-4">
         <div className="text-center">
@@ -263,13 +266,10 @@ export default function Home() {
 
           <button 
             onClick={handleConfetti}
-            className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              <Gift size={24} />
-              Abrir Sorpresa
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <Gift size={24} />
+            Abrir Sorpresa
           </button>
         </div>
       </section>
@@ -352,12 +352,9 @@ export default function Home() {
           <div className="mt-8">
             <Link
               to="/mensajes"
-              className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
-              <span className="relative z-10 flex items-center justify-center gap-2">
-                Ver todos los mensajes
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              Ver todos los mensajes
             </Link>
           </div>
         </div>
