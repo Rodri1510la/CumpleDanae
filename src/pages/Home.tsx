@@ -1,18 +1,18 @@
 import { Heart, Gift, Sparkles, Star, Music, X, Play, Pause } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const photos = [
   '/images/yo_y_danita.jpeg',
-  '/images/snoopy_cool.png',
-  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?q=80&w=800&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+  '/images/comida_juntos_1.jpeg',
+  '/images/comida_juntos2.jpeg',
+  '/images/flores_amarillas_para_danae.jpeg',
+  '/images/fogata_en_la_playa.jpeg',
+  '/images/lirios.jpg',
 ];
 
 const thingsILove = [
-  "Tu sonrisa que ilumina todo",
   "Tu forma de ver el lado positivo de la vida",
   "Tu risa que es contagiosa",
   "Tu bondad y generosidad",
@@ -30,6 +30,40 @@ export default function Home() {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  
+  // Cuenta regresiva hasta el 16 de julio de 2026 a las 00:00
+  const targetDate = new Date('2026-07-16T00:00:00').getTime();
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+  const [isCountdownOver, setIsCountdownOver] = useState(false);
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        setIsCountdownOver(true);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds });
+    };
+
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleConfetti = () => {
     const duration = 3000;
@@ -70,6 +104,46 @@ export default function Home() {
       setIsPlaying(!isPlaying);
     }
   };
+
+  // Si la cuenta regresiva no ha terminado, mostramos la pantalla de espera
+  if (!isCountdownOver) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200 flex items-center justify-center p-4">
+        <div className="text-center">
+          <Heart className="mx-auto text-purple-600 mb-6 animate-pulse" size={80} />
+          <h1 className="font-great-vibes text-5xl md:text-7xl text-gray-900 mb-4">
+            ¡Preparando la sorpresa!
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-700 mb-8">
+            Faltan poco para el cumpleaños de Danita! 🎉
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-200 min-w-[100px]">
+              <div className="text-4xl font-bold text-blue-600">{timeLeft.days}</div>
+              <div className="text-gray-500">Días</div>
+            </div>
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-200 min-w-[100px]">
+              <div className="text-4xl font-bold text-purple-600">{timeLeft.hours}</div>
+              <div className="text-gray-500">Horas</div>
+            </div>
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-200 min-w-[100px]">
+              <div className="text-4xl font-bold text-blue-600">{timeLeft.minutes}</div>
+              <div className="text-gray-500">Minutos</div>
+            </div>
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-200 min-w-[100px]">
+              <div className="text-4xl font-bold text-purple-600">{timeLeft.seconds}</div>
+              <div className="text-gray-500">Segundos</div>
+            </div>
+          </div>
+          <img 
+            src="/images/snoopy_cool.png" 
+            alt="Snoopy" 
+            className="mx-auto w-48 animate-bounce opacity-80"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -112,7 +186,7 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200 z-0">
         {/* Floating icons, Snoopy, Lilies and Beach elements */}
         <div className="absolute inset-0 pointer-events-none">
           <Heart className="absolute top-20 left-10 text-gray-400 animate-bounce" size={40} />
@@ -126,12 +200,13 @@ export default function Home() {
             className="absolute bottom-24 left-10 w-32 animate-bounce opacity-80"
             style={{animationDuration: '3s'}}
           />
-          <img 
-            src="https://www.freepnglogos.com/uploads/woodstock-snoopy-png/woodstock-snoopy-clip-art-download-19.png" 
-            alt="Woodstock" 
-            className="absolute top-24 right-32 w-20 animate-pulse opacity-70"
+          {/* Woodstock emoji as a backup! */}
+          <div 
+            className="absolute top-24 right-32 text-5xl animate-pulse opacity-70"
             style={{animationDuration: '2s'}}
-          />
+          >
+            🐦
+          </div>
           {/* Floating Lily Images */}
           <img 
             src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?q=80&w=200&auto=format&fit=crop" 
@@ -161,7 +236,7 @@ export default function Home() {
           </div>
           <div className="absolute bottom-32 right-1/4 text-cyan-600 animate-bounce" style={{animationDuration: '2.8s'}}>
             <svg width="45" height="45" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M21.98 14H22V12H20C18.69 12 17.58 11.17 17.17 10H6.83C6.42 11.17 5.31 12 4 12H2V14H2.02C2.14 14.94 2.55 15.82 3.19 16.56L2 18L3.41 19.41L5 18C6.47 19.25 8.4 20 10.5 20H13.5C15.6 20 17.53 19.25 19 18L20.59 19.41L22 18L20.81 16.56C21.45 15.82 21.86 14.94 21.98 14Z" />
+              <path d="M21.98 14H22V12H20C18.69 12,17.58 11.17,17.17 10H6.83C6.42 11.17,5.31 12,4 12H2V14H2.02C2.14 14.94,2.55 15.82,3.19 16.56L2 18L3.41 19.41L5 18C6.47 19.25,8.4 20,10.5 20H13.5C15.6 20,17.53 19.25,19 18L20.59 19.41L22 18L20.81 16.56C21.45 15.82,21.86 14.94,21.98 14Z" />
             </svg>
           </div>
         </div>
@@ -267,10 +342,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Guestbook Call to Action Section */}
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-purple-50">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <Heart className="mx-auto text-purple-500 mb-6" size={60} />
+          <h2 className="font-great-vibes text-5xl md:text-6xl text-gray-900 mb-4">
+            Danita, lee aquí los mensajes de quienes te quieren! ❤️
+          </h2>
+          <div className="mt-8">
+            <Link
+              to="/mensajes"
+              className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            >
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                Ver todos los mensajes
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Love Letter Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-100 to-blue-50">
+      <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-4 border-dashed border-gray-300">
+          <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl shadow-2xl p-8 md:p-12 border-4 border-dashed border-gray-300">
             <Heart className="mx-auto text-blue-500 mb-6" size={40} />
             <h2 className="font-great-vibes text-5xl text-center text-gray-900 mb-8">
               Mi Carta para Ti
@@ -296,7 +392,7 @@ export default function Home() {
               <p className="font-great-vibes text-3xl text-purple-600 text-right pt-6">
                 Con todo mi corazón,
                 <br />
-                Tu amor
+                Tu rodriguito
               </p>
             </div>
           </div>
