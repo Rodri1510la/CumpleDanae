@@ -14,7 +14,13 @@ export default function NuevoMensaje() {
     if (!nombre.trim() || !mensaje.trim()) return;
     setLoading(true);
 
-    await supabase.from('mensajes').insert([{ nombre, mensaje }]);
+    const { error } = await supabase.from('mensajes').insert([{ nombre, mensaje }]);
+    if (error) {
+      console.error('Error inserting message:', error);
+      alert('Ocurrió un error al enviar el mensaje: ' + error.message);
+      setLoading(false);
+      return;
+    }
     navigate('/mensajes');
   };
 

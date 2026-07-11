@@ -16,10 +16,14 @@ export default function Mensajes() {
 
   useEffect(() => {
     const fetchMensajes = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('mensajes')
         .select('*')
         .order('fecha', { ascending: false });
+      if (error) {
+        console.error('Error fetching messages:', error);
+        alert('Ocurrió un error al cargar los mensajes: ' + error.message);
+      }
       if (data) setMensajes(data);
       setLoading(false);
     };
