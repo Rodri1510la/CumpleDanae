@@ -73,16 +73,18 @@ export default function Mensajes() {
                   <h3 className="text-xl font-bold text-gray-900">{m.nombre}</h3>
                 </div>
                 <p className="text-gray-700 mb-3 text-lg leading-relaxed">{m.mensaje}</p>
-                <p className="text-sm text-gray-400">
-          {new Date(m.fecha || Date.now()).toLocaleString('es-ES', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-          })}
-        </p>
+                {m.fecha && (
+                  <p className="text-sm text-gray-400">
+                    {new Date(m.fecha).toLocaleString('es-ES', { 
+                      weekday: 'long', 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </p>
+                )}
               </div>
             ))}
           </div>
