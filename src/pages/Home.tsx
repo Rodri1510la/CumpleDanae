@@ -1,12 +1,12 @@
 import { Heart, Gift, Sparkles, Star, Music, X, Play, Pause } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 const photos = [
   '/images/yo_y_danita.jpeg',
   '/images/snoopy_cool.png',
-  'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=800&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?q=80&w=800&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
 ];
@@ -19,7 +19,10 @@ const thingsILove = [
   "Lo mucho que amas a Snoopy",
   "Cómo me haces sentir especial",
   "Tu amor por los Lirios 🌺",
-  "Tu pasión por la música de Siddhartha 🎶",
+  "Tu pasión por Siddhartha & Morat 🎶",
+  "Tu amor por la playa 🏖️",
+  "Tu ternura con los perritos 🐕",
+  "Tu gusto por la mayonesa 😄",
 ];
 
 export default function Home() {
@@ -83,7 +86,7 @@ export default function Home() {
         </button>
         {isPlaying && (
           <div className="text-sm font-semibold text-gray-700">
-            Siddhartha - Únicos 🎶
+            Siddhartha & Morat 🎶
           </div>
         )}
       </div>
@@ -110,7 +113,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200">
-        {/* Floating icons, Snoopy and Lilies */}
+        {/* Floating icons, Snoopy, Lilies and Beach elements */}
         <div className="absolute inset-0 pointer-events-none">
           <Heart className="absolute top-20 left-10 text-gray-400 animate-bounce" size={40} />
           <Star className="absolute top-40 right-20 text-blue-400 animate-pulse" size={30} />
@@ -142,6 +145,25 @@ export default function Home() {
             className="absolute bottom-40 right-20 w-20 rounded-full shadow-lg animate-bounce"
             style={{animationDuration: '3.5s'}}
           />
+          {/* Beach elements */}
+          <div className="absolute top-16 right-1/4 text-yellow-500 animate-pulse" style={{animationDuration: '2.5s'}}>
+            <svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" strokeWidth="2" />
+              <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" strokeWidth="2" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" strokeWidth="2" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" strokeWidth="2" />
+              <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" strokeWidth="2" />
+              <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" strokeWidth="2" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" strokeWidth="2" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" strokeWidth="2" />
+            </svg>
+          </div>
+          <div className="absolute bottom-32 right-1/4 text-cyan-600 animate-bounce" style={{animationDuration: '2.8s'}}>
+            <svg width="45" height="45" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21.98 14H22V12H20C18.69 12 17.58 11.17 17.17 10H6.83C6.42 11.17 5.31 12 4 12H2V14H2.02C2.14 14.94 2.55 15.82 3.19 16.56L2 18L3.41 19.41L5 18C6.47 19.25 8.4 20 10.5 20H13.5C15.6 20 17.53 19.25 19 18L20.59 19.41L22 18L20.81 16.56C21.45 15.82 21.86 14.94 21.98 14Z" />
+            </svg>
+          </div>
         </div>
 
         <div className="relative z-10 text-center px-4">
@@ -194,12 +216,12 @@ export default function Home() {
 
       {/* Things I Love About You Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
           <h2 className="font-great-vibes text-5xl md:text-6xl text-center text-gray-900 mb-12">
             Cosas que amo de ti
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {thingsILove.map((thing, index) => (
               <div 
                 key={index} 
@@ -265,7 +287,7 @@ export default function Home() {
               <p>
                 En este día tan especial (tus 26 años!), quiero recordarte lo increíble que eres. Tu bondad, tu generosidad, tu forma de ver 
                 la vida con optimismo... todo acerca de ti me inspira a ser una persona mejor. Me encanta ver cómo tus ojos brillan 
-                cuando hablas de las cosas que amas: los lirios, la música de Siddhartha, Snoopy...
+                cuando hablas de las cosas que amas: los lirios, la música de Siddhartha y Morat, Snoopy, la playa, los perritos e incluso la mayonesa!
               </p>
               <p>
                 Espero que este cumpleaños esté lleno de todo lo que te hace feliz. Que cada momento sea mágico, 
