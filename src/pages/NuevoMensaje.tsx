@@ -7,7 +7,7 @@ export default function NuevoMensaje() {
   const [nombre, setNombre] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,12 +21,27 @@ export default function NuevoMensaje() {
       setLoading(false);
       return;
     }
-    navigate('/mensajes');
+    
+    setShowSuccess(true);
+    setNombre('');
+    setMensaje('');
+    setLoading(false);
+    
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 5000);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
+        {showSuccess && (
+          <div className="mb-8 p-4 bg-green-100 border-2 border-green-400 rounded-2xl text-green-800 text-center">
+            <p className="text-xl font-bold">¡Mensaje enviado con éxito! 🎉</p>
+            <p className="text-sm mt-2">Gracias por tu mensaje para Danita!</p>
+          </div>
+        )}
+        
         <Link to="/" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8 transition-colors">
           <ArrowLeft size={20} />
           <span>Volver al inicio</span>
