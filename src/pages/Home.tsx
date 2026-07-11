@@ -1,4 +1,4 @@
-import { Heart, Gift, Sparkles, Star, Music } from 'lucide-react';
+import { Heart, Gift, Sparkles, Star, Music, X } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useState } from 'react';
 
@@ -11,8 +11,19 @@ const photos = [
   'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=800&auto=format&fit=crop',
 ];
 
+const thingsILove = [
+  "Tu sonrisa que ilumina todo",
+  "Tu forma de ver el lado positivo de la vida",
+  "Tu risa que es contagiosa",
+  "Tu bondad y generosidad",
+  "Lo mucho que amas a Snoopy",
+  "Cómo me haces sentir especial",
+];
+
 export default function Home() {
   const [surprise, setSurprise] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const handleConfetti = () => {
     const duration = 3000;
@@ -45,14 +56,62 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Floating Music Player */}
+      <div className="fixed bottom-4 right-4 z-50 bg-white rounded-full shadow-2xl p-4 flex items-center gap-3 border-2 border-gray-200">
+        <button 
+          onClick={() => setIsPlaying(!isPlaying)}
+          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center hover:scale-110 transition-transform"
+        >
+          <Music size={24} />
+        </button>
+        {isPlaying && (
+          <div className="text-sm font-semibold text-gray-700">
+            Música de cumpleaños 🎵
+          </div>
+        )}
+      </div>
+
+      {/* Photo Modal */}
+      {selectedPhoto && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <button 
+            className="absolute top-4 right-4 text-white"
+            onClick={() => setSelectedPhoto(null)}
+          >
+            <X size={32} />
+          </button>
+          <img 
+            src={selectedPhoto} 
+            alt="Recuerdo" 
+            className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
+          />
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200">
-        {/* Floating icons */}
+        {/* Floating icons and Snoopy */}
         <div className="absolute inset-0 pointer-events-none">
           <Heart className="absolute top-20 left-10 text-gray-400 animate-bounce" size={40} />
           <Star className="absolute top-40 right-20 text-blue-400 animate-pulse" size={30} />
           <Gift className="absolute bottom-32 left-1/4 text-purple-400 animate-bounce" style={{animationDelay: '0.5s'}} size={35} />
           <Sparkles className="absolute bottom-20 right-10 text-gray-300 animate-pulse" style={{animationDelay: '1s'}} size={45} />
+          {/* Floating Snoopy Image */}
+          <img 
+            src="https://www.pngmart.com/files/14/Snoopy-PNG-Picture.png" 
+            alt="Snoopy" 
+            className="absolute bottom-24 left-10 w-32 animate-bounce opacity-80"
+            style={{animationDuration: '3s'}}
+          />
+          <img 
+            src="https://www.freepnglogos.com/uploads/woodstock-snoopy-png/woodstock-snoopy-clip-art-download-19.png" 
+            alt="Woodstock" 
+            className="absolute top-24 right-32 w-20 animate-pulse opacity-70"
+            style={{animationDuration: '2s'}}
+          />
         </div>
 
         <div className="relative z-10 text-center px-4">
@@ -103,6 +162,29 @@ export default function Home() {
         </section>
       )}
 
+      {/* Things I Love About You Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="font-great-vibes text-5xl md:text-6xl text-center text-gray-900 mb-12">
+            Cosas que amo de ti
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {thingsILove.map((thing, index) => (
+              <div 
+                key={index} 
+                className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-2xl shadow-lg border-2 border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-300 text-center"
+              >
+                <Heart className="mx-auto text-blue-500 mb-4" size={32} />
+                <p className="text-lg font-semibold text-gray-700">
+                  {thing}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Gallery Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
@@ -112,7 +194,11 @@ export default function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {photos.map((photo, index) => (
-              <div key={index} className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-gray-200">
+              <div 
+                key={index} 
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 cursor-pointer"
+                onClick={() => setSelectedPhoto(photo)}
+              >
                 <img 
                   src={photo} 
                   alt={`Momento ${index + 1}`} 
