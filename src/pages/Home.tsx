@@ -1,6 +1,6 @@
 import { Heart, Gift, Sparkles, Star, Music, X, Play, Pause } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const photos = [
   '/images/yo_y_danita.jpeg',
@@ -29,7 +29,39 @@ export default function Home() {
   const [surprise, setSurprise] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [countdownOver, setCountdownOver] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Fecha objetivo: 16 de julio de 2026 a las 00:00
+  const targetDate = new Date('2026-07-16T00:00:00').getTime();
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        setCountdownOver(true);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds });
+    };
+
+    // Ejecutar inmediatamente
+    updateCountdown();
+
+    // Actualizar cada segundo
+    const interval = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleConfetti = () => {
     const duration = 3000;
@@ -71,6 +103,47 @@ export default function Home() {
     }
   };
 
+  // Si la cuenta regresiva no ha terminado, mostrar la pantalla de countdown
+  if (!countdownOver) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center px-4">
+        <div className="text-center max-w-4xl">
+          <Sparkles className="mx-auto text-yellow-400 mb-8 animate-pulse" size={80} />
+          <h1 className="font-great-vibes text-5xl md:text-7xl text-white mb-6">
+            ¡Falta poco para tu día!
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-200 mb-10">
+            Preparando algo especial para ti, Danita
+          </p>
+          
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/20 min-w-[100px]">
+              <div className="text-4xl md:text-6xl font-bold text-white">{timeLeft.days}</div>
+              <div className="text-sm md:text-lg text-gray-300 mt-2">Días</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/20 min-w-[100px]">
+              <div className="text-4xl md:text-6xl font-bold text-white">{timeLeft.hours}</div>
+              <div className="text-sm md:text-lg text-gray-300 mt-2">Horas</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/20 min-w-[100px]">
+              <div className="text-4xl md:text-6xl font-bold text-white">{timeLeft.minutes}</div>
+              <div className="text-sm md:text-lg text-gray-300 mt-2">Minutos</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/20 min-w-[100px]">
+              <div className="text-4xl md:text-6xl font-bold text-white">{timeLeft.seconds}</div>
+              <div className="text-sm md:text-lg text-gray-300 mt-2">Segundos</div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center gap-4">
+            <img src="/images/snoopy_cool.png" alt="Snoopy" className="w-24 md:w-32 animate-bounce" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Si la cuenta regresiva terminó, mostrar el contenido completo
   return (
     <div className="min-h-screen bg-white">
       {/* Audio Element */}
@@ -161,7 +234,7 @@ export default function Home() {
           </div>
           <div className="absolute bottom-32 right-1/4 text-cyan-600 animate-bounce" style={{animationDuration: '2.8s'}}>
             <svg width="45" height="45" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M21.98 14H22V12H20C18.69 12 17.58 11.17 17.17 10H6.83C6.42 11.17 5.31 12 4 12H2V14H2.02C2.14 14.94 2.55 15.82 3.19 16.56L2 18L3.41 19.41L5 18C6.47 19.25 8.4 20 10.5 20H13.5C15.6 20 17.53 19.25 19 18L20.59 19.41L22 18L20.81 16.56C21.45 15.82 21.86 14.94 21.98 14Z" />
+              <path d="M21.98 14H22V12H20C18.69 12,17.58 11.17,17.17 10H6.83C6.42 11.17,5.31 12,4 12H2V14H2.02C2.14 14.94,2.55 15.82,3.19 16.56L2 18L3.41 19.41L5 18C6.47 19.25,8.4 20,10.5 20H13.5C15.6 20,17.53 19.25,19 18L20.59 19.41L22 18L20.81 16.56C21.45 15.82,21.86 14.94,21.98 14Z" />
             </svg>
           </div>
         </div>
