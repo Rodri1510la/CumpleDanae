@@ -1,14 +1,14 @@
-import { Heart, Gift, Sparkles, Star, Music, X } from 'lucide-react';
+import { Heart, Gift, Sparkles, Star, Music, X, Play, Pause } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const photos = [
+  '/images/yo_y_danita.jpeg',
+  '/images/snoopy_cool.png',
   'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=800&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=800&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=800&auto=format&fit=crop',
 ];
 
 const thingsILove = [
@@ -26,6 +26,7 @@ export default function Home() {
   const [surprise, setSurprise] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleConfetti = () => {
     const duration = 3000;
@@ -56,19 +57,33 @@ export default function Home() {
     setSurprise(!surprise);
   };
 
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      {/* Audio Element */}
+      <audio ref={audioRef} src="/music/Siddhartha-Únicos-_Letra_.mp3" loop />
+
       {/* Floating Music Player */}
       <div className="fixed bottom-4 right-4 z-50 bg-white rounded-full shadow-2xl p-4 flex items-center gap-3 border-2 border-gray-200">
         <button 
-          onClick={() => setIsPlaying(!isPlaying)}
+          onClick={toggleMusic}
           className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center hover:scale-110 transition-transform"
         >
-          <Music size={24} />
+          {isPlaying ? <Pause size={24} /> : <Play size={24} />}
         </button>
         {isPlaying && (
           <div className="text-sm font-semibold text-gray-700">
-            Siddhartha 🎶
+            Siddhartha - Únicos 🎶
           </div>
         )}
       </div>
@@ -103,7 +118,7 @@ export default function Home() {
           <Sparkles className="absolute bottom-20 right-10 text-gray-300 animate-pulse" style={{animationDelay: '1s'}} size={45} />
           {/* Floating Snoopy Image */}
           <img 
-            src="https://www.pngmart.com/files/14/Snoopy-PNG-Picture.png" 
+            src="/images/snoopy_cool.png" 
             alt="Snoopy" 
             className="absolute bottom-24 left-10 w-32 animate-bounce opacity-80"
             style={{animationDuration: '3s'}}
