@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Send, ArrowLeft, Heart } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Send, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
 export default function NuevoMensaje() {
@@ -41,11 +41,6 @@ export default function NuevoMensaje() {
             <p className="text-sm mt-2">Gracias por tu mensaje para Danita!</p>
           </div>
         )}
-        
-        <Link to="/" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8 transition-colors">
-          <ArrowLeft size={20} />
-          <span>Volver al inicio</span>
-        </Link>
 
         <div className="text-center mb-8">
           <Heart className="mx-auto text-purple-500 mb-4" size={40} />
