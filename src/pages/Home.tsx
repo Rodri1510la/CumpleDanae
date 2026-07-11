@@ -18,6 +18,8 @@ const thingsILove = [
   "Tu bondad y generosidad",
   "Lo mucho que amas a Snoopy",
   "Cómo me haces sentir especial",
+  "Tu amor por los Lirios 🌺",
+  "Tu pasión por la música de Siddhartha 🎶",
 ];
 
 export default function Home() {
@@ -66,7 +68,7 @@ export default function Home() {
         </button>
         {isPlaying && (
           <div className="text-sm font-semibold text-gray-700">
-            Música de cumpleaños 🎵
+            Siddhartha 🎶
           </div>
         )}
       </div>
@@ -93,7 +95,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200">
-        {/* Floating icons and Snoopy */}
+        {/* Floating icons, Snoopy and Lilies */}
         <div className="absolute inset-0 pointer-events-none">
           <Heart className="absolute top-20 left-10 text-gray-400 animate-bounce" size={40} />
           <Star className="absolute top-40 right-20 text-blue-400 animate-pulse" size={30} />
@@ -111,6 +113,19 @@ export default function Home() {
             alt="Woodstock" 
             className="absolute top-24 right-32 w-20 animate-pulse opacity-70"
             style={{animationDuration: '2s'}}
+          />
+          {/* Floating Lily Images */}
+          <img 
+            src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?q=80&w=200&auto=format&fit=crop" 
+            alt="Lirio" 
+            className="absolute top-32 left-20 w-24 rounded-full shadow-lg animate-pulse"
+            style={{animationDuration: '4s'}}
+          />
+          <img 
+            src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?q=80&w=200&auto=format&fit=crop" 
+            alt="Lirio" 
+            className="absolute bottom-40 right-20 w-20 rounded-full shadow-lg animate-bounce"
+            style={{animationDuration: '3.5s'}}
           />
         </div>
 
@@ -169,7 +184,7 @@ export default function Home() {
             Cosas que amo de ti
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {thingsILove.map((thing, index) => (
               <div 
                 key={index} 
@@ -234,7 +249,8 @@ export default function Home() {
               </p>
               <p>
                 En este día tan especial (tus 26 años!), quiero recordarte lo increíble que eres. Tu bondad, tu generosidad, tu forma de ver 
-                la vida con optimismo... todo acerca de ti me inspira a ser una persona mejor.
+                la vida con optimismo... todo acerca de ti me inspira a ser una persona mejor. Me encanta ver cómo tus ojos brillan 
+                cuando hablas de las cosas que amas: los lirios, la música de Siddhartha, Snoopy...
               </p>
               <p>
                 Espero que este cumpleaños esté lleno de todo lo que te hace feliz. Que cada momento sea mágico, 
