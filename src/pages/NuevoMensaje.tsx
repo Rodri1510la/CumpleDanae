@@ -14,7 +14,11 @@ export default function NuevoMensaje() {
     if (!nombre.trim() || !mensaje.trim()) return;
     setLoading(true);
 
-    const { error } = await supabase.from('mensajes').insert([{ nombre, mensaje }]);
+    const { error } = await supabase.from('mensajes').insert([{ 
+      nombre, 
+      mensaje, 
+      fecha: new Date().toISOString() 
+    }]);
     if (error) {
       console.error('Error inserting message:', error);
       alert('Ocurrió un error al enviar el mensaje: ' + error.message);
