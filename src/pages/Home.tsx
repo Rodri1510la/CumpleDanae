@@ -1,6 +1,6 @@
 import { Heart, Gift, Sparkles, Star, Music, X, Play, Pause } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const photos = [
