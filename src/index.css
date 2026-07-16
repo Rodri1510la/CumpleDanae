@@ -87,3 +87,41 @@ button, a {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Mejoras de UI para tarjetas y elementos */
+.love-card-1 {
+  background: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #f3e8ff 100%);
+}
+
+.love-card-2 {
+  background: linear-gradient(135deg, #e0e7ff 0%, #ffffff 50%, #fce7f3 100%);
+}
+
+.love-card-3 {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #fef3c7 100%);
+}
+
+.love-card-4 {
+  background: linear-gradient(135deg, #fdf4ff 0%, #ffffff 50%, #fef9c3 100%);
+}
+
+/* Hero gradient animation */
+.hero-gradient {
+  background: linear-gradient(-45deg, #f3f4f6, #bfdbfe, #e9d5ff, #ddd6fe);
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Subtle decorative elements */
+.decorative-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  opacity: 0.6;
+}

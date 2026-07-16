@@ -192,7 +192,7 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200 z-0">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient z-0">
         {/* Floating icons, Snoopy, Lilies and Beach elements */}
         <div className="absolute inset-0 pointer-events-none">
           <Heart className="absolute top-12 left-4 md:top-20 md:left-10 text-gray-400 animate-float-slow" size={24} />
@@ -343,7 +343,10 @@ export default function Home() {
       )}
 
       {/* Things I Love About You Section */}
-      <section className="scroll-section py-24 bg-white">
+      <section className="scroll-section py-24 bg-gradient-to-b from-white to-blue-50/30 relative overflow-hidden">
+        {/* Subtle decorative elements */}
+        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-blue-200/30 blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-40 h-40 rounded-full bg-purple-200/30 blur-3xl" />
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="font-great-vibes text-5xl md:text-6xl text-center text-gray-900 mb-12">
             Cosas que amo de ti
@@ -354,24 +357,42 @@ export default function Home() {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {thingsILove.map((thing, index) => (
-              <div 
-                key={index} 
-                className="group relative overflow-hidden rounded-3xl border-2 border-gray-100 bg-gradient-to-br from-blue-50 via-white to-purple-50 p-6 text-center shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              >
-                <div className="absolute inset-x-6 top-0 h-1 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-70" />
-                <Heart className="mx-auto mb-4 text-blue-500 transition-transform duration-300 group-hover:scale-110" size={32} />
-                <p className="text-lg font-semibold text-gray-700">
-                  {thing}
-                </p>
-              </div>
-            ))}
+            {thingsILove.map((thing, index) => {
+              const cardClasses = [
+                "love-card-1",
+                "love-card-2",
+                "love-card-3",
+                "love-card-4",
+                "love-card-1",
+                "love-card-2",
+                "love-card-3",
+                "love-card-4",
+                "love-card-1",
+                "love-card-2"
+              ];
+              return (
+                <div 
+                  key={index} 
+                  className={`group relative overflow-hidden rounded-3xl border-2 border-white/60 ${cardClasses[index % 10]} p-6 text-center shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl backdrop-blur-sm`}
+                >
+                  <div className="absolute inset-x-6 top-0 h-1 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <Heart className="mx-auto mb-4 text-blue-500 transition-all duration-300 group-hover:scale-125 group-hover:rotate-6" size={32} />
+                  <p className="text-lg font-semibold text-gray-700 relative z-10">
+                    {thing}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Gallery Section */}
-      <section className="scroll-section py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="scroll-section py-24 bg-gradient-to-b from-blue-50/30 to-white relative overflow-hidden">
+        {/* Subtle decorative elements */}
+        <div className="absolute top-40 right-20 w-24 h-24 rounded-full bg-yellow-200/20 blur-3xl" />
+        <div className="absolute bottom-40 left-20 w-28 h-28 rounded-full bg-pink-200/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="font-great-vibes text-5xl md:text-6xl text-center text-gray-900 mb-12">
             Nuestros Momentos Inolvidables
@@ -413,7 +434,10 @@ export default function Home() {
       </section>
 
       {/* Favorite Songs Section */}
-      <section className="scroll-section py-24 bg-gradient-to-b from-white to-blue-50">
+      <section className="scroll-section py-24 bg-gradient-to-b from-white to-purple-50/50 relative overflow-hidden">
+        {/* Subtle decorative elements */}
+        <div className="absolute top-20 right-1/4 w-36 h-36 rounded-full bg-purple-200/20 blur-3xl" />
+        <div className="absolute bottom-20 left-1/4 w-32 h-32 rounded-full bg-blue-200/20 blur-3xl" />
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="font-great-vibes text-5xl md:text-6xl text-center text-gray-900 mb-12">
             Nuestras Canciones
@@ -479,7 +503,10 @@ export default function Home() {
       </section>
 
       {/* Love Letter Section */}
-      <section className="scroll-section py-24 bg-white">
+      <section className="scroll-section py-24 bg-gradient-to-b from-purple-50/50 to-white relative overflow-hidden">
+        {/* Subtle decorative elements */}
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full bg-pink-100/40 blur-3xl" />
+        <div className="absolute bottom-10 right-1/3 w-32 h-32 rounded-full bg-blue-100/40 blur-3xl" />
         <div className="max-w-4xl mx-auto px-4">
           <div className="relative overflow-hidden rounded-[2rem] border border-purple-100 bg-gradient-to-br from-blue-50 via-white to-purple-50 p-8 shadow-2xl md:p-12">
             <div className="absolute right-6 top-6 opacity-10">
@@ -517,14 +544,14 @@ export default function Home() {
                   Siddhartha y Morat, Snoopy, la playa, los perritos... amo todo eso porque forma parte de ti.
                 </p>
                 <p>
-                  Hoy celebramos TU vida, TU existencia, TU luz. Deseo que este día esté lleno de todo lo que
+                  Hoy celebramos Tu cumple y de verdad me siento afortunado de estar contigo. Deseo que este día esté lleno de todo lo que
                   te hace feliz, que cada momento sea mágico, que cada sueño que tengas se haga realidad y que
-                  nunca olvides lo increíble que eres y lo mucho que te amo.
+                  nunca olvides lo increíble que eres y lo mucho que te amo mi bb.
                 </p>
                 <p>
                   Gracias por ser tú, por existir, por entrar en mi vida y hacerla mejor en cada aspecto.
                   Prometo amarte, cuidarte, respetarte y hacerte feliz todos los días de mi vida.
-                  Eres mi sol, mi luna y todas mis estrellas.
+                  Eres mi sol, mi norte y mi lugar favorito.
                 </p>
                 <p className="pt-6 text-right font-great-vibes text-3xl text-purple-600">
                   Con todo mi corazón, para siempre,
