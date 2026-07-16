@@ -15,12 +15,12 @@ const photos = [
 
 const photoCaptions = [
   'Ese día en el que todo se sintió tan perfecto, como si el mundo se detuviera solo para nosotros.',
-  'Nuestras comidas juntos, donde cada bocado sabe mejor por estar contigo.',
-  'Momentos simples que se volvieron inolvidables por tu presencia.',
+  'Nuestras comidas juntos, donde siempre como mas pero soy feliz al comer contigo.',
+  'Momentos simples que se volvieron inolvidables por que estabas ahi.',
   'Flores que nunca serán tan bonitas como tu sonrisa.',
-  'Atardeceres, fuego y la calma que solo tú me das.',
-  'Tus lirios, que representan la belleza y pureza que veo en ti.',
-  'Nuestro compañero peludo, testigo de tanto amor entre nosotros.',
+  'Atardecer, y la fogata a tu lado fue de lo mas bonito.',
+  'Lirios para mi delirio dicen jeje TE AMO.',
+  'Perritos siempre sere tu fan asi como eres fan de los perros.',
 ];
 
 const thingsILove = [
@@ -305,21 +305,21 @@ export default function Home() {
               <Heart className="mb-3 text-purple-600" size={28} />
               <p className="text-sm uppercase tracking-[0.2em] text-gray-500">Esencia de Ti</p>
               <p className="mt-2 text-lg font-semibold text-gray-800">
-                Toda tu alma, tu dulzura y tu luz capturada en un solo lugar.
+                Toda tu alma, tu forma de ser y tu humor estan aqui jum , creo :D.
               </p>
             </div>
             <div className="rounded-3xl border border-white/60 bg-white/65 p-5 shadow-lg backdrop-blur">
               <Camera className="mb-3 text-blue-600" size={28} />
               <p className="text-sm uppercase tracking-[0.2em] text-gray-500">Nuestra Historia</p>
               <p className="mt-2 text-lg font-semibold text-gray-800">
-                Los momentos que juntos hemos convertido en recuerdos imborrables.
+                Los momentos que juntos que de verdad nunca creo que olvide danae.
               </p>
             </div>
             <div className="rounded-3xl border border-white/60 bg-white/65 p-5 shadow-lg backdrop-blur">
               <MessageCircle className="mb-3 text-purple-600" size={28} />
               <p className="text-sm uppercase tracking-[0.2em] text-gray-500">Cariño Infinito</p>
               <p className="mt-2 text-lg font-semibold text-gray-800">
-                Todas las palabras bonitas que el mundo tiene para ti en un solo espacio.
+                Todas las palabras bonitas que se me pueden ocurrir de solo pensarte mi bonita.
               </p>
             </div>
           </div>
@@ -470,7 +470,7 @@ export default function Home() {
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-purple-200 bg-white px-10 py-4 font-semibold text-gray-800 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
                 >
                   <MessageCircle size={20} />
-                  Lee todo el cariño
+                  Lee todo el cariño 
                 </Link>
               </div>
             </div>
@@ -494,12 +494,12 @@ export default function Home() {
               </div>
               <Heart className="mx-auto text-blue-500 mb-6" size={40} />
               <h2 className="font-great-vibes text-5xl text-center text-gray-900 mb-8">
-                Mi Carta para Ti, Mi Amor
+                Mi Carta para Ti, Mi Loquita
               </h2>
             
               <div className="text-gray-700 text-lg md:text-xl leading-loose space-y-6">
                 <p>
-                  Mi querida, mi Danita,
+                  Mi vida, mi Danita,
                 </p>
                 <p>
                   No hay palabras suficientes en el mundo para expresar todo lo que te amo, pero hoy,
@@ -556,10 +556,10 @@ export default function Home() {
             <Gift className="text-purple-400 animate-pulse" style={{animationDelay: '0.4s'}} size={40} />
           </div>
           <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">
-            ¡Feliz Cumpleaños, Mi Vida!
+            ¡Feliz Cumpleaños, Mi Enojona!
           </h3>
           <p className="text-xl opacity-90">
-            Te amo hoy, mañana y siempre. Con todo mi corazón.
+            Te amo hoy, mañana y siempre. Con todo mi corazón de verdad.
           </p>
         </div>
       </footer>
