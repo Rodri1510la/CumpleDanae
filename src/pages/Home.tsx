@@ -38,9 +38,9 @@ const thingsILove = [
 
 const favoriteSongs = [
   { name: "Únicos", artist: "Siddhartha" },
-  { name: "Tu Canción", artist: "Siddhartha" },
+  { name: "Brujula", artist: "Siddhartha" },
   { name: "Cuanto Me Duele", artist: "Morat" },
-  { name: "El Día Que Me Quieras", artist: "Carlos Gardel" }
+  { name: "Love Story", artist: "Taylor Swift" }
 ];
 
 export default function Home() {
@@ -264,9 +264,9 @@ export default function Home() {
               </div>
 
               <p className="mx-auto mt-8 max-w-3xl text-xl leading-relaxed text-gray-700 md:text-2xl">
-                Hoy es el día en que el mundo recibió el regalo más hermoso que jamás ha tenido: TÚ.
+                Hoy es el día en el que nacio la mujer mas increible que pudo existir de Tacnita: TÚ.
                 Quiero dedicarte esta página como un recordatorio de todo lo que te amo,
-                de todos los momentos que hemos compartido y de todo lo que aún nos espera juntos.
+                de todos los momentos que hemos compartido y de todo lo que aún nos espera juntos bb.
               </p>
 
               <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -349,7 +349,7 @@ export default function Home() {
             Cosas que amo de ti
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-lg text-gray-600 md:text-xl">
-            No hay lista suficientemente larga para incluir todo lo que amo de ti, pero estas son
+            No hay lista larga para incluir todo lo que amo de ti danita, pero estas son
             solo algunas de las razones por las que te elijo cada día de mi vida.
           </p>
           
