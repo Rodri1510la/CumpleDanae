@@ -199,11 +199,29 @@ export default function Home() {
           <Star className="absolute top-24 right-4 md:top-40 md:right-20 text-blue-400 animate-float-fast" size={20} />
           <Gift className="absolute bottom-24 left-4 md:bottom-32 md:left-1/4 text-purple-400 animate-float-medium" style={{animationDelay: '0.5s'}} size={24} />
           <Sparkles className="absolute bottom-12 right-4 md:bottom-20 md:right-10 text-gray-300 animate-float-slow" style={{animationDelay: '1s'}} size={32} />
-          {/* Floating Snoopy Image */}
+          {/* Floating Snoopy Images */}
           <img 
             src="/images/snoopy_cool.png" 
             alt="Snoopy" 
             className="absolute bottom-16 left-4 w-20 md:w-32 animate-float-medium opacity-80"
+          />
+          <img 
+            src="/images/snoopy_hug.png" 
+            alt="Snoopy" 
+            className="absolute top-32 right-4 md:top-40 md:right-10 w-16 md:w-24 animate-float-slow opacity-75"
+            style={{animationDelay: '0.3s'}}
+          />
+          <img 
+            src="/images/Snoopy_Peanuts.png" 
+            alt="Snoopy" 
+            className="absolute bottom-40 right-1/4 w-14 md:w-20 animate-float-fast opacity-70"
+            style={{animationDelay: '0.6s'}}
+          />
+          <img 
+            src="/images/494-4942883_snoopy-amor-png-imagenes-de-snoopy-de-amor.png" 
+            alt="Snoopy" 
+            className="absolute top-1/2 left-1/4 w-16 md:w-24 animate-float-medium opacity-75"
+            style={{animationDelay: '0.9s'}}
           />
           {/* Woodstock emoji as a backup! */}
           <div 
@@ -213,12 +231,12 @@ export default function Home() {
           </div>
           {/* Floating Lily Images */}
           <img 
-            src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?q=80&w=200&auto=format&fit=crop" 
+            src="/images/lirios.jpg" 
             alt="Lirio" 
             className="absolute top-20 left-8 w-16 md:w-24 rounded-full shadow-lg animate-float-slow"
           />
           <img 
-            src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?q=80&w=200&auto=format&fit=crop" 
+            src="/images/lirios.jpg" 
             alt="Lirio" 
             className="absolute bottom-32 right-8 w-16 md:w-20 rounded-full shadow-lg animate-float-medium"
           />
