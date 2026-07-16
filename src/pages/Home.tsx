@@ -10,7 +10,7 @@ const photos = [
   '/images/flores_amarillas_para_danae.jpeg',
   '/images/fogata_en_la_playa.jpeg',
   '/images/lirios.jpg',
-  '/images/maquis.jpeg',
+  '/images/perritos.jpeg',
 ];
 
 const photoCaptions = [
