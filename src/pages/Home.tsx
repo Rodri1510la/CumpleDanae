@@ -27,13 +27,13 @@ const thingsILove = [
   "Tu mirada, que me hace sentir como la persona más importante del mundo",
   "Tu risa, que es el sonido que quiero escuchar todos los días",
   "Tu ternura, que me abraza incluso cuando no estás físicamente",
-  "Lo mucho que amas a Snoopy, y cómo eso hace que tu corazón se vea aún más hermoso",
-  "La manera en que me haces creer que todo es posible",
+  "Lo mucho que amas a Snoopy, y cómo cada sticker y verlo siempre me recuerda a ti",
+  "La manera en que me haces creer que todo es posible de verdad gracias por eso",
   "Tu amor por los lirios 🌺, y cómo iluminas cuando los ves",
-  "Tu pasión por Siddhartha & Morat 🎶, y cómo cantas juntos conmigo",
-  "Tu felicidad en la playa 🏖️, como si el mar fuera tu segundo hogar",
-  "Tu manera de amar a los perritos 🐕, con toda tu alma",
-  "Tu gusto por la mayonesa 😄, que me hace sonreír cada vez",
+  "Tu pasión por Siddhartha Morat y Taylor 🎶, y cómo las escuchamos juntos",
+  "Tu felicidad en la playa 🏖️, cada dia ahi juntos jamas olvidare",
+  "Tu manera de amar a los perritos 🐕, con toda tu alma me hace amarlos tambien",
+  "Tu gusto por la mayonesa 😄, que aunque no me guste se que te gusta",
 ];
 
 const favoriteSongs = [
