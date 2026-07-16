@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Heart, Plus, Sparkles, ArrowLeft, Gift, Cake, Star } from 'lucide-react';
+import { Heart, Plus, Sparkles, ArrowLeft, Gift, Cake, Star, ArrowUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
@@ -23,6 +23,7 @@ const getIniciales = (nombre: string) => {
 export default function Mensajes() {
   const [mensajes, setMensajes] = useState<Mensaje[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     const fetchMensajes = async () => {
@@ -39,6 +40,22 @@ export default function Mensajes() {
     };
     fetchMensajes();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200 py-12 px-4 relative overflow-hidden">
@@ -140,6 +157,16 @@ export default function Mensajes() {
           </div>
         )}
       </div>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300"
+        >
+          <ArrowUp size={28} />
+        </button>
+      )}
       
       {/* Footer */}
       <footer className="bg-gradient-to-br from-gray-900 to-purple-900 text-white py-16 mt-20">

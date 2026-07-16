@@ -14,26 +14,33 @@ const photos = [
 ];
 
 const photoCaptions = [
-  'Uno de esos recuerdos que quisiera repetir contigo mil veces.',
-  'Comidas contigo que siempre terminan sabiendo mejor.',
-  'Momentos simples que se volvieron importantes por estar contigo.',
-  'Flores bonitas para alguien todavia mas bonita.',
-  'Atardeceres, fuego y la paz de tenerte cerca.',
-  'Tus lirios, porque tambien merecen su lugar especial aqui.',
-  'Nuestro compañero favorito que siempre está con nosotros.',
+  'Ese día en el que todo se sintió tan perfecto, como si el mundo se detuviera solo para nosotros.',
+  'Nuestras comidas juntos, donde cada bocado sabe mejor por estar contigo.',
+  'Momentos simples que se volvieron inolvidables por tu presencia.',
+  'Flores que nunca serán tan bonitas como tu sonrisa.',
+  'Atardeceres, fuego y la calma que solo tú me das.',
+  'Tus lirios, que representan la belleza y pureza que veo en ti.',
+  'Nuestro compañero peludo, testigo de tanto amor entre nosotros.',
 ];
 
 const thingsILove = [
-  "Tu forma de ver el lado positivo de la vida",
-  "Tu risa que es contagiosa",
-  "Tu bondad y generosidad",
-  "Lo mucho que amas a Snoopy",
-  "Cómo me haces sentir especial",
-  "Tu amor por los Lirios 🌺",
-  "Tu pasión por Siddhartha & Morat 🎶",
-  "Tu amor por la playa 🏖️",
-  "Tu ternura con los perritos 🐕",
-  "Tu gusto por la mayonesa 😄",
+  "Tu mirada, que me hace sentir como la persona más importante del mundo",
+  "Tu risa, que es el sonido que quiero escuchar todos los días",
+  "Tu ternura, que me abraza incluso cuando no estás físicamente",
+  "Lo mucho que amas a Snoopy, y cómo eso hace que tu corazón se vea aún más hermoso",
+  "La manera en que me haces creer que todo es posible",
+  "Tu amor por los lirios 🌺, y cómo iluminas cuando los ves",
+  "Tu pasión por Siddhartha & Morat 🎶, y cómo cantas juntos conmigo",
+  "Tu felicidad en la playa 🏖️, como si el mar fuera tu segundo hogar",
+  "Tu manera de amar a los perritos 🐕, con toda tu alma",
+  "Tu gusto por la mayonesa 😄, que me hace sonreír cada vez",
+];
+
+const favoriteSongs = [
+  { name: "Únicos", artist: "Siddhartha" },
+  { name: "Tu Canción", artist: "Siddhartha" },
+  { name: "Cuanto Me Duele", artist: "Morat" },
+  { name: "El Día Que Me Quieras", artist: "Carlos Gardel" }
 ];
 
 export default function Home() {
@@ -42,62 +49,7 @@ export default function Home() {
   const [modalFadingOut, setModalFadingOut] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [countdownFadingOut, setCountdownFadingOut] = useState(false);
-  const [homeFadingIn, setHomeFadingIn] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  
-  // Cuenta regresiva hasta el 16 de julio de 2026 a las 00:00
-  const targetDate = new Date('2026-07-16T00:00:00').getTime();
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  });
-  const [isCountdownOver, setIsCountdownOver] = useState(false);
-
-  useEffect(() => {
-    const updateCountdown = () => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance <= 0) {
-        setIsCountdownOver(true);
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      setTimeLeft({ days, hours, minutes, seconds });
-    };
-
-    const interval = setInterval(updateCountdown, 1000);
-    updateCountdown(); // Initial call
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Cuando la cuenta regresiva termine: ejecutar confetti, música y transición
-  useEffect(() => {
-    if (isCountdownOver && !SKIP_COUNTDOWN) {
-      // Primero: desvanecer la pantalla de countdown
-      setCountdownFadingOut(true);
-      
-      setTimeout(() => {
-        // Luego: activar todo lo demás
-        handleConfetti();
-        if (audioRef.current) {
-          audioRef.current.play().catch(e => console.log("Audio play blocked:", e));
-          setIsPlaying(true);
-        }
-        // Mostrar la página principal con fade in
-        setHomeFadingIn(true);
-      }, 600); // Tiempo de fade out del countdown
-    }
-  }, [isCountdownOver]);
 
   // Controlar visibilidad del botón de volver arriba
   useEffect(() => {
@@ -107,6 +59,34 @@ export default function Home() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Controlar animaciones de secciones con scroll
+  useEffect(() => {
+    const sections = document.querySelectorAll('.scroll-section');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('section-visible');
+            entry.target.classList.remove('section-hidden');
+          }
+        });
+      },
+      {
+        threshold: 0.1
+      }
+    );
+
+    sections.forEach((section) => {
+      section.classList.add('section-hidden');
+      observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
   }, []);
 
   const handleConfetti = () => {
@@ -168,52 +148,11 @@ export default function Home() {
     });
   };
 
-  // Para desarrollo: cambia a true para saltarte la cuenta regresiva
-  // Para producción (Vercel): déjalo en false para que la cuenta regresiva salga hasta el 16 de julio
-  const SKIP_COUNTDOWN = false;
-  
-  // Si la cuenta regresiva no ha terminado, mostramos la pantalla de espera
-  if (!isCountdownOver && !SKIP_COUNTDOWN) {
-    return (
-      <div className={`min-h-screen bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200 flex items-center justify-center p-4 transition-all duration-600 ${countdownFadingOut ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-        <div className="text-center">
-          <Heart className="mx-auto text-purple-600 mb-6 animate-pulse" size={80} />
-          <h1 className="font-great-vibes text-5xl md:text-7xl text-gray-900 mb-4">
-            ¡Preparando la sorpresa!
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-700 mb-8">
-            Faltan poco para el cumpleaños de Danita! 🎉
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-200 min-w-[100px]">
-              <div className="text-4xl font-bold text-blue-600">{timeLeft.days}</div>
-              <div className="text-gray-500">Días</div>
-            </div>
-            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-200 min-w-[100px]">
-              <div className="text-4xl font-bold text-purple-600">{timeLeft.hours}</div>
-              <div className="text-gray-500">Horas</div>
-            </div>
-            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-200 min-w-[100px]">
-              <div className="text-4xl font-bold text-blue-600">{timeLeft.minutes}</div>
-              <div className="text-gray-500">Minutos</div>
-            </div>
-            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-200 min-w-[100px]">
-              <div className="text-4xl font-bold text-purple-600">{timeLeft.seconds}</div>
-              <div className="text-gray-500">Segundos</div>
-            </div>
-          </div>
-          <img 
-            src="/images/snoopy_cool.png" 
-            alt="Snoopy" 
-            className="mx-auto w-48 animate-bounce opacity-80"
-          />
-        </div>
-      </div>
-    );
-  }
+  // Cuenta regresiva desactivada permanentemente (ya es el 16 de julio!)
+  const SKIP_COUNTDOWN = true;
 
   return (
-    <div className={`min-h-screen bg-white transition-all duration-800 ${(SKIP_COUNTDOWN || homeFadingIn) ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+    <div className="min-h-screen bg-white">
       {/* Audio Element */}
       <audio ref={audioRef} src="/music/Siddhartha-Únicos-_Letra_.mp3" loop />
 
@@ -308,7 +247,7 @@ export default function Home() {
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/65 px-5 py-2 text-sm font-semibold text-gray-700 shadow-lg backdrop-blur">
               <Sparkles size={16} className="text-purple-600" />
-              Un rinconcito hecho solo para ti
+              Hoy es tu día, mi amor
             </div>
 
             <div className="rounded-[2rem] border border-white/60 bg-white/60 px-6 py-10 shadow-[0_30px_80px_rgba(76,29,149,0.15)] backdrop-blur-xl md:px-10 md:py-14">
@@ -317,28 +256,28 @@ export default function Home() {
                 Feliz Cumpleaños
               </h1>
               <h2 className="font-great-vibes text-5xl text-blue-600 md:text-7xl mb-6">
-                Danita
+                Mi Danita
               </h2>
               <div className="inline-flex items-center gap-3 rounded-full bg-gray-900 px-6 py-3 text-white shadow-lg">
                 <Sparkles size={24} />
-                <span className="text-xl font-bold">¡26 años increibles!</span>
+                <span className="text-xl font-bold">¡Hoy celebramos TU existencia! 🎉</span>
               </div>
 
               <p className="mx-auto mt-8 max-w-3xl text-xl leading-relaxed text-gray-700 md:text-2xl">
-                Hoy celebro tu vida, tu luz y la manera tan bonita en la que haces
-                que todo se sienta mas especial. Quise convertir esta pagina en una
-                pequeña experiencia que se sintiera tan tuya como mis recuerdos contigo.
+                Hoy es el día en que el mundo recibió el regalo más hermoso que jamás ha tenido: TÚ.
+                Quiero dedicarte esta página como un recordatorio de todo lo que te amo,
+                de todos los momentos que hemos compartido y de todo lo que aún nos espera juntos.
               </p>
 
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <div className="rounded-full border border-purple-200 bg-white/80 px-4 py-2 text-sm font-medium text-gray-700 shadow-sm">
-                  Snoopy, playa y flores favoritas
+                  Tu sonrisa ilumina mi vida
                 </div>
                 <div className="rounded-full border border-blue-200 bg-white/80 px-4 py-2 text-sm font-medium text-gray-700 shadow-sm">
-                  Una sorpresa hecha con mucho amor
+                  Cada momento contigo es un sueño hecho realidad
                 </div>
                 <div className="rounded-full border border-purple-200 bg-white/80 px-4 py-2 text-sm font-medium text-gray-700 shadow-sm">
-                  Recuerdos, mensajes y una carta para ti
+                  Te amo más de lo que las palabras pueden decir
                 </div>
               </div>
 
@@ -348,14 +287,14 @@ export default function Home() {
                   className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-10 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
                 >
                   <Gift size={24} />
-                  Abrir Sorpresa
+                  Abrir mi corazón
                 </button>
                 <Link
                   to="/mensajes"
                   className="inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/80 px-10 py-4 font-semibold text-gray-800 shadow-lg backdrop-blur transition-all duration-300 hover:scale-105 hover:shadow-xl"
                 >
                   <MessageCircle size={22} />
-                  Leer mensajes
+                  Lee los mensajes de amor
                 </Link>
               </div>
             </div>
@@ -364,23 +303,23 @@ export default function Home() {
           <div className="mx-auto mt-8 grid max-w-5xl gap-4 md:grid-cols-3">
             <div className="rounded-3xl border border-white/60 bg-white/65 p-5 shadow-lg backdrop-blur">
               <Heart className="mb-3 text-purple-600" size={28} />
-              <p className="text-sm uppercase tracking-[0.2em] text-gray-500">Esencia</p>
+              <p className="text-sm uppercase tracking-[0.2em] text-gray-500">Esencia de Ti</p>
               <p className="mt-2 text-lg font-semibold text-gray-800">
-                Una portada mas romantica, suave y especial para ti.
+                Toda tu alma, tu dulzura y tu luz capturada en un solo lugar.
               </p>
             </div>
             <div className="rounded-3xl border border-white/60 bg-white/65 p-5 shadow-lg backdrop-blur">
               <Camera className="mb-3 text-blue-600" size={28} />
-              <p className="text-sm uppercase tracking-[0.2em] text-gray-500">Recuerdos</p>
+              <p className="text-sm uppercase tracking-[0.2em] text-gray-500">Nuestra Historia</p>
               <p className="mt-2 text-lg font-semibold text-gray-800">
-                Fotos y momentos que cuentan poquito a poquito nuestra historia.
+                Los momentos que juntos hemos convertido en recuerdos imborrables.
               </p>
             </div>
             <div className="rounded-3xl border border-white/60 bg-white/65 p-5 shadow-lg backdrop-blur">
               <MessageCircle className="mb-3 text-purple-600" size={28} />
-              <p className="text-sm uppercase tracking-[0.2em] text-gray-500">Cariño</p>
+              <p className="text-sm uppercase tracking-[0.2em] text-gray-500">Cariño Infinito</p>
               <p className="mt-2 text-lg font-semibold text-gray-800">
-                Un espacio para que todos puedan dejarte amor en forma de mensajes.
+                Todas las palabras bonitas que el mundo tiene para ti en un solo espacio.
               </p>
             </div>
           </div>
@@ -389,28 +328,29 @@ export default function Home() {
 
       {/* Surprise Message */}
       {surprise && (
-        <section className="py-16 bg-gradient-to-r from-gray-50 to-blue-50">
+        <section className="scroll-section py-16 bg-gradient-to-r from-gray-50 to-blue-50">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <Heart className="mx-auto text-purple-500 mb-6 animate-pulse" size={50} />
             <h3 className="font-great-vibes text-5xl text-gray-900 mb-6">
-              ¡Te amo más de lo que las palabras pueden decir!
+              ¡Eres mi vida entera!
             </h3>
             <p className="text-xl text-gray-700">
-              Eres mi sol, mi luna y todas mis estrellas. Que este día sea tan especial como tú lo eres para mí.
+              Sin ti, el mundo sería un lugar menos brillante. Gracias por existir, por ser tú, y por permitirme amarte.
+              Te amo más hoy que ayer, y menos que mañana.
             </p>
           </div>
         </section>
       )}
 
       {/* Things I Love About You Section */}
-      <section className="py-24 bg-white">
+      <section className="scroll-section py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="font-great-vibes text-5xl md:text-6xl text-center text-gray-900 mb-12">
             Cosas que amo de ti
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-lg text-gray-600 md:text-xl">
-            Hay detalles tuyos que se quedan conmigo todo el tiempo. Esta es una
-            pequeña lista de muchas razones por las que tu existencia se siente tan bonita.
+            No hay lista suficientemente larga para incluir todo lo que amo de ti, pero estas son
+            solo algunas de las razones por las que te elijo cada día de mi vida.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -431,13 +371,14 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="scroll-section py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="font-great-vibes text-5xl md:text-6xl text-center text-gray-900 mb-12">
-            Nuestros Momentos
+            Nuestros Momentos Inolvidables
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-lg text-gray-600 md:text-xl">
-            Una galeria mas viva para que cada foto se sienta como una postal de nosotros.
+            Cada fotografía es una ventana al pasado, a esos momentos que juntos hemos hecho únicos y que
+            guardo con todo mi corazón.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -458,7 +399,7 @@ export default function Home() {
                   <div className="p-6 text-white">
                     <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-sm font-medium backdrop-blur">
                       <Camera size={16} />
-                      {index === 0 ? 'Recuerdo favorito' : 'Momento especial'}
+                      {index === 0 ? 'Nuestro recuerdo más preciado' : 'Un pedacito de nuestra historia'}
                     </div>
                     <p className="text-lg font-semibold leading-relaxed md:text-xl">
                       {photoCaptions[index]}
@@ -471,8 +412,38 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Favorite Songs Section */}
+      <section className="scroll-section py-24 bg-gradient-to-b from-white to-blue-50">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="font-great-vibes text-5xl md:text-6xl text-center text-gray-900 mb-12">
+            Nuestras Canciones
+          </h2>
+          <p className="mx-auto mb-12 max-w-3xl text-center text-lg text-gray-600 md:text-xl">
+            La banda sonora de nuestra historia, canciones que me recuerdan a ti y a todo lo que compartimos.
+          </p>
+          
+          <div className="space-y-4">
+            {favoriteSongs.map((song, index) => (
+              <div 
+                key={index}
+                className="group flex items-center gap-4 rounded-[2rem] border border-white/70 bg-white/70 px-6 py-4 shadow-lg backdrop-blur transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+              >
+                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white">
+                  <Music size={28} />
+                </div>
+                <div className="flex-grow">
+                  <p className="text-xl font-bold text-gray-900">{song.name}</p>
+                  <p className="text-gray-600">{song.artist}</p>
+                </div>
+                <Heart size={20} className="text-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Guestbook Call to Action Section */}
-      <section className="py-24 bg-gradient-to-b from-blue-50 to-purple-50">
+      <section className="scroll-section py-24 bg-gradient-to-b from-blue-50 to-purple-50">
         <div className="max-w-5xl mx-auto px-4">
           <div className="relative overflow-hidden rounded-[2rem] border border-purple-100 bg-white/70 px-6 py-12 text-center shadow-[0_24px_60px_rgba(59,130,246,0.12)] backdrop-blur md:px-10">
             <div className="absolute -left-10 top-10 h-32 w-32 rounded-full bg-blue-200/40 blur-3xl" />
@@ -480,11 +451,11 @@ export default function Home() {
             <div className="relative z-10">
               <Heart className="mx-auto mb-6 text-purple-500" size={60} />
               <h2 className="font-great-vibes text-5xl text-gray-900 md:text-6xl mb-4">
-                Danita, lee aqui los mensajes de quienes te quieren
+                Danita, aquí está el amor del mundo para ti
               </h2>
               <p className="mx-auto max-w-2xl text-lg text-gray-600 md:text-xl">
-                Aqui quedaran guardadas las palabras bonitas, los buenos deseos y el cariño
-                de las personas que quieren acompañarte en tu dia.
+                Todas las palabras bonitas, los buenos deseos y todo el cariño de quienes te quieren
+                están aquí, guardados para ti siempre.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Link
@@ -492,14 +463,14 @@ export default function Home() {
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-10 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
                 >
                   <Gift size={20} />
-                  Dejar un mensaje
+                  Deja tu mensaje de amor
                 </Link>
                 <Link
                   to="/mensajes"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-purple-200 bg-white px-10 py-4 font-semibold text-gray-800 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
                 >
                   <MessageCircle size={20} />
-                  Ver todos los mensajes
+                  Lee todo el cariño
                 </Link>
               </div>
             </div>
@@ -508,7 +479,7 @@ export default function Home() {
       </section>
 
       {/* Love Letter Section */}
-      <section className="py-24 bg-white">
+      <section className="scroll-section py-24 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <div className="relative overflow-hidden rounded-[2rem] border border-purple-100 bg-gradient-to-br from-blue-50 via-white to-purple-50 p-8 shadow-2xl md:p-12">
             <div className="absolute right-6 top-6 opacity-10">
@@ -518,33 +489,45 @@ export default function Home() {
               <div className="mb-6 flex justify-center">
                 <div className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-gray-700 shadow">
                   <Quote size={16} className="text-purple-600" />
-                  Una carta escrita con el corazon
+                  Una carta desde lo más profundo de mi corazón
                 </div>
               </div>
               <Heart className="mx-auto text-blue-500 mb-6" size={40} />
               <h2 className="font-great-vibes text-5xl text-center text-gray-900 mb-8">
-                Mi Carta para Ti
+                Mi Carta para Ti, Mi Amor
               </h2>
             
               <div className="text-gray-700 text-lg md:text-xl leading-loose space-y-6">
                 <p>
-                  Mi querida Danita,
+                  Mi querida, mi Danita,
                 </p>
                 <p>
-                  Desde el momento en que te conocí, supe que eras alguien especial. Tu sonrisa ilumina mis días,
-                  tu risa es la melodía más hermosa que he escuchado, y tu amor es el regalo más preciado que jamás he recibido.
+                  No hay palabras suficientes en el mundo para expresar todo lo que te amo, pero hoy,
+                  en tu cumpleaños, quiero intentarlo. Desde el primer momento en que te vi,
+                  supe que eras alguien diferente, alguien que llegaría para quedarse y cambiarlo todo.
                 </p>
                 <p>
-                  En este día tan especial (tus 26 años!), quiero recordarte lo increíble que eres. Tu bondad, tu generosidad, tu forma de ver
-                  la vida con optimismo... todo acerca de ti me inspira a ser una persona mejor. Me encanta ver cómo tus ojos brillan
-                  cuando hablas de las cosas que amas: los lirios, la música de Siddhartha y Morat, Snoopy, la playa, los perritos e incluso la mayonesa!
+                  Tu sonrisa es el sol que ilumina mis mañanas, tu risa es la melodía que quiero escuchar
+                  todos los días y tu abrazo es el hogar donde siempre quiero estar. Amo tu manera de ver
+                  el mundo con optimismo, tu bondad infinita, tu generosidad sin límites y tu corazón tan
+                  grande que todos caben en él.
                 </p>
                 <p>
-                  Espero que este cumpleaños esté lleno de todo lo que te hace feliz. Que cada momento sea mágico,
-                  cada sueño se haga realidad y sepas, sin lugar a dudas, cuánto te amo.
+                  Amo cómo tus ojos brillan cuando hablas de las cosas que amas: los lirios, la música de
+                  Siddhartha y Morat, Snoopy, la playa, los perritos... amo todo eso porque forma parte de ti.
+                </p>
+                <p>
+                  Hoy celebramos TU vida, TU existencia, TU luz. Deseo que este día esté lleno de todo lo que
+                  te hace feliz, que cada momento sea mágico, que cada sueño que tengas se haga realidad y que
+                  nunca olvides lo increíble que eres y lo mucho que te amo.
+                </p>
+                <p>
+                  Gracias por ser tú, por existir, por entrar en mi vida y hacerla mejor en cada aspecto.
+                  Prometo amarte, cuidarte, respetarte y hacerte feliz todos los días de mi vida.
+                  Eres mi sol, mi luna y todas mis estrellas.
                 </p>
                 <p className="pt-6 text-right font-great-vibes text-3xl text-purple-600">
-                  Con todo mi corazón,
+                  Con todo mi corazón, para siempre,
                   <br />
                   Tu rodriguito
                 </p>
@@ -573,10 +556,10 @@ export default function Home() {
             <Gift className="text-purple-400 animate-pulse" style={{animationDelay: '0.4s'}} size={40} />
           </div>
           <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">
-            ¡Feliz Cumpleaños Danita!
+            ¡Feliz Cumpleaños, Mi Vida!
           </h3>
           <p className="text-xl opacity-90">
-            Con todo mi amor, hoy y siempre.
+            Te amo hoy, mañana y siempre. Con todo mi corazón.
           </p>
         </div>
       </footer>
