@@ -106,7 +106,7 @@ export default function Home() {
   };
 
   // Para desarrollo: cambia a true para saltarte la cuenta regresiva
-  const SKIP_COUNTDOWN = false;
+  const SKIP_COUNTDOWN = true;
   
   // Si la cuenta regresiva no ha terminado, mostramos la pantalla de espera
   if (!isCountdownOver && !SKIP_COUNTDOWN) {
@@ -397,13 +397,17 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gradient-to-br from-gray-900 to-purple-900 text-white py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <Sparkles className="mx-auto mb-4 text-gray-400" size={40} />
-          <h3 className="font-great-vibes text-4xl mb-4">
+          <div className="flex justify-center gap-4 mb-6">
+            <Heart className="text-purple-400 animate-pulse" size={40} />
+            <Sparkles className="text-blue-400 animate-pulse" style={{animationDelay: '0.2s'}} size={40} />
+            <Gift className="text-purple-400 animate-pulse" style={{animationDelay: '0.4s'}} size={40} />
+          </div>
+          <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">
             ¡Feliz Cumpleaños Danita!
           </h3>
-          <p className="text-lg opacity-90">
+          <p className="text-xl opacity-90">
             Con todo mi amor, hoy y siempre.
           </p>
         </div>

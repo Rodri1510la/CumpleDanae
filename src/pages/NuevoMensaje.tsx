@@ -72,8 +72,22 @@ export default function NuevoMensaje() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-blue-100 to-purple-200 py-12 px-4 relative overflow-hidden">
+      {/* Floating decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <Heart className="absolute top-16 left-10 text-gray-400 animate-bounce" size={40} />
+        <Sparkles className="absolute top-32 right-20 text-blue-400 animate-pulse" size={30} />
+        <Gift className="absolute bottom-24 left-1/4 text-purple-400 animate-bounce" style={{animationDelay: '0.5s'}} size={35} />
+        <Cake className="absolute bottom-16 right-10 text-gray-300 animate-pulse" style={{animationDelay: '1s'}} size={45} />
+        <div 
+          className="absolute top-24 right-32 text-5xl animate-pulse opacity-70"
+          style={{animationDuration: '2s'}}
+        >
+          🐦
+        </div>
+      </div>
+      
+      <div className="max-w-2xl mx-auto relative z-10">
         {showSuccess && (
           <div className="mb-8 p-6 bg-gradient-to-r from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl text-green-800 text-center shadow-lg">
             <PartyPopper className="mx-auto mb-2 text-green-600" size={32} />
@@ -153,6 +167,23 @@ export default function NuevoMensaje() {
           </button>
         </form>
       </div>
+      
+      {/* Footer */}
+      <footer className="bg-gradient-to-br from-gray-900 to-purple-900 text-white py-16 mt-20 relative z-10">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <div className="flex justify-center gap-4 mb-6">
+            <Heart className="text-purple-400 animate-pulse" size={40} />
+            <Sparkles className="text-blue-400 animate-pulse" style={{animationDelay: '0.2s'}} size={40} />
+            <Gift className="text-purple-400 animate-pulse" style={{animationDelay: '0.4s'}} size={40} />
+          </div>
+          <h3 className="font-great-vibes text-5xl md:text-6xl mb-4">
+            ¡Feliz Cumpleaños Danita!
+          </h3>
+          <p className="text-xl opacity-90">
+            Con todo mi amor, hoy y siempre.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
